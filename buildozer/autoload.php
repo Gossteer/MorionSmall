@@ -5,7 +5,8 @@ class ClassLoader {
     public static $addMap = array();
     public static $dir = [
             'Controllers',
-            'Models'
+            'Models',
+            'buildozer\Core',
     ];
     
     //Добавить класс к карте классов
@@ -21,7 +22,10 @@ class ClassLoader {
            //Ищем в карте классов
             if (isset(self::$classMap[$className])) {
                 $filename = self::$classMap[$className];
-                include_once ROOT_DIR . $filename; 
+                if(!@include_once ROOT_DIR . $filename) {
+                    self::library($filename);
+                }
+                //include_once ROOT_DIR . $filename; 
             //Ищем в папках
             } else {
                 self::library($className);
@@ -35,8 +39,10 @@ class ClassLoader {
     
     public static function library($className){
             foreach (self::$dir as $d){
-                echo $d;
-                $filename = ROOT_DIR . $d . '/'. $className . ".php";
+                //echo $d . "\n";
+                $filename = ROOT_DIR . $d . '\\'. $className;
+                //$filename = ROOT_DIR . $d . '\\'. $className . ".php";
+                //echo $filename . "\n";
                 if (is_readable($filename)) {
                     require_once $filename;
                 }
