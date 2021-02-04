@@ -3,7 +3,7 @@
 </IfModule>
 AddDefaultCharset UTF-8
 AddCharset UTF-8 .html
-<FilesMatch "\.(html)$">
+<FilesMatch "\.(php)$">
    Header set Cache-Control: "no-cache, no-store"
    Header unset ETag
 </FilesMatch>
